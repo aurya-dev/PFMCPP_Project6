@@ -65,8 +65,10 @@ struct struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if(a != nullptr && b != nullptr) {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;
+        }
         return nullptr;
     }
 };
@@ -76,16 +78,19 @@ struct U
     float name1 { 30 }, name2 { 20 };
     float memberFunction(float* updatedValue)      //12
     {
-        std::cout << "U's name1 value: " << name1 << std::endl;
-        name1 = *updatedValue;
-        std::cout << "U's name1 updated value: " << name1 << std::endl;
-        while( std::abs(name2 - name1) > 0.001f )
-        {
-            name1 -= .5f;
-            name2 -= 1.0f;
+        if(updatedValue != nullptr) {
+            std::cout << "U's name1 value: " << name1 << std::endl;
+            name1 = *updatedValue;
+            std::cout << "U's name1 updated value: " << name1 << std::endl;
+            while( std::abs(name2 - name1) > 0.001f )
+            {
+                name1 -= .5f;
+                name2 -= 1.0f;
+            }
+            std::cout << "U's name2 updated value: " << name2 << std::endl;
+            return name2 * name1;   
         }
-        std::cout << "U's name2 updated value: " << name2 << std::endl;
-        return name2 * name1;        
+        return 0;
     }
 };
 
@@ -126,8 +131,9 @@ int main()
     T t2(20 , "b");                                             //6
     
     struct1 f;                                            //7
-    auto* smaller = f.compare(&t1 , &t2);                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
+    auto* smaller = f.compare(&t1 , &t2); 
+    if(smaller != nullptr)                             //8
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
     
     U u3;
     float updatedValue = 5.f;
