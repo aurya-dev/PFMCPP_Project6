@@ -137,6 +137,7 @@ int main()
     std::cout << "[member func] u4's multiplied values: " << u4.memberFunction( &updatedValue ) << std::endl;
 
     std::cout << "- complete -" << std::endl;
+    
 }
 
         
