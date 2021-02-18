@@ -98,16 +98,19 @@ struct struct2
 {
     static float staticFunctionA(U* that, float* updatedValue )        //10
     {
-        std::cout << "U's name1 value: " << that->name1 << std::endl;
-        that->name1 = *updatedValue;
-        std::cout << "U's name1 updated value: " << that->name1 << std::endl;
-        while( std::abs(that->name2 - that->name1) > 0.001f )
-        {
-            that->name1 -= .5f;
-            that->name2 -= 1.0f;
+        if(updatedValue != nullptr) {
+            std::cout << "U's name1 value: " << that->name1 << std::endl;
+            that->name1 = *updatedValue;
+            std::cout << "U's name1 updated value: " << that->name1 << std::endl;
+            while( std::abs(that->name2 - that->name1) > 0.001f )
+            {
+                that->name1 -= .5f;
+                that->name2 -= 1.0f;
+            }
+            std::cout << "U's name2 updated value: " << that->name2 << std::endl;
+            return that->name2 * that->name1;
         }
-        std::cout << "U's name2 updated value: " << that->name2 << std::endl;
-        return that->name2 * that->name1;
+        return 0;
     }
 };
         
