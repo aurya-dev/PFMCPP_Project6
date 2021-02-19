@@ -100,7 +100,7 @@ struct struct2
 {
     static float staticFunctionA(U* that, float* updatedValue )        //10
     {
-        if(updatedValue != nullptr) 
+        if(that != nullptr && updatedValue != nullptr) 
         {
             std::cout << "U's name1 value: " << that->name1 << std::endl;
             that->name1 = *updatedValue;
