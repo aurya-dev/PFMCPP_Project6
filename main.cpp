@@ -61,7 +61,7 @@ struct T
     std::string name; 
 };
 
-struct struct1                                //4
+struct Struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
@@ -96,7 +96,7 @@ struct U
     }
 };
 
-struct struct2
+struct Struct2
 {
     static float staticFunctionA(U* that, float* updatedValue )        //10
     {
@@ -136,14 +136,14 @@ int main()
     T t1(10 , "a");                                             //6
     T t2(20 , "b");                                             //6
     
-    struct1 f;                                            //7
+    Struct1 f;                                            //7
     auto* smaller = f.compare(&t1 , &t2); 
     if(smaller != nullptr)                             //8
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
     
     U u3;
     float updatedValue = 5.f;
-    std::cout << "[static func] u3's multiplied values: " << struct2::staticFunctionA(&u3 , &updatedValue) << std::endl;                  //11
+    std::cout << "[static func] u3's multiplied values: " << Struct2::staticFunctionA(&u3 , &updatedValue) << std::endl;                  //11
     
     U u4;
     std::cout << "[member func] u4's multiplied values: " << u4.memberFunction( &updatedValue ) << std::endl;
