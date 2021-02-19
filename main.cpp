@@ -65,7 +65,8 @@ struct struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
-        if(a != nullptr && b != nullptr) {
+        if(a != nullptr && b != nullptr) 
+        {
             if( a->value < b->value ) return a;
             if( a->value > b->value ) return b;
         }
@@ -78,7 +79,8 @@ struct U
     float name1 { 30 }, name2 { 20 };
     float memberFunction(float* updatedValue)      //12
     {
-        if(updatedValue != nullptr) {
+        if(updatedValue != nullptr) 
+        {
             std::cout << "U's name1 value: " << name1 << std::endl;
             name1 = *updatedValue;
             std::cout << "U's name1 updated value: " << name1 << std::endl;
@@ -98,7 +100,8 @@ struct struct2
 {
     static float staticFunctionA(U* that, float* updatedValue )        //10
     {
-        if(updatedValue != nullptr) {
+        if(updatedValue != nullptr) 
+        {
             std::cout << "U's name1 value: " << that->name1 << std::endl;
             that->name1 = *updatedValue;
             std::cout << "U's name1 updated value: " << that->name1 << std::endl;
