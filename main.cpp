@@ -28,12 +28,22 @@ struct T
 
 struct Struct1                                //4
 {
-    T* compare( T& a, T& b) //5
+    const T* compare(const T& a,const T& b) //5
     {
         if( a.value < b.value ) return &a;
         if( a.value > b.value ) return &a;
         return &a;   // Added to remove the compiler warnings "control may reach end of non-void function [-Wreturn-type]"
     }
+
+    T* compare2(T& a, T& b) //5
+    {
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &a;
+        return &a;   // Added to remove the compiler warnings "control may reach end of non-void function [-Wreturn-type]"
+    }
+
+
+
 };
 
 struct U
@@ -94,6 +104,9 @@ int main()
     Struct1 f;                                            //7
     auto* smaller = f.compare(t1, t2); 
     std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
+
+    auto* smaller2 = f.compare2(t1, t2); 
+    std::cout << "the smaller2 one is << " << smaller2->name << std::endl; //9 
     
     U u3;
     float updatedValue = 5.f;
