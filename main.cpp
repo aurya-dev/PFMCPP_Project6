@@ -28,21 +28,21 @@ struct T
 
 struct Struct1                                //4
 {
-    const T* compare(const T& a,const T& b) //5
+    // This is a valid code but your instruction is "convert all pointer to reference type where possible"
+    const T* compare(const T& a, const T& b) //5
     {
-        if( a.value < b.value ) return &a;
+        if( a.value < b.value ) return &b;
         if( a.value > b.value ) return &a;
-        return &a;   // Added to remove the compiler warnings "control may reach end of non-void function [-Wreturn-type]"
+        return nullptr;   
     }
 
-    T* compare2(T& a, T& b) //5
+    // This is hopefully the right answer for your instruction 
+    const T& compare3(const T& a, const T& b) //5
     {
-        if( a.value < b.value ) return &a;
-        if( a.value > b.value ) return &a;
-        return &a;   // Added to remove the compiler warnings "control may reach end of non-void function [-Wreturn-type]"
+        if( a.value < b.value ) return b;
+        if( a.value > b.value ) return a;
+        return a;   // If a and b is equal. Not the best solution...
     }
-
-
 
 };
 
@@ -98,16 +98,25 @@ struct Struct2
 
 int main()
 {
-    T t1(10 , "a");                                             //6
-    T t2(20 , "b");                                             //6
+    T t1(21 , "a");                                             //6
+    T t2(21 , "b");                                             //6
     
     Struct1 f;                                            //7
     auto* smaller = f.compare(t1, t2); 
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
+    if(smaller != nullptr)
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
+    else 
+        std::cout << "the " << t1.name << " and " << t2.name << " are equal" << std::endl;
 
-    auto* smaller2 = f.compare2(t1, t2); 
-    std::cout << "the smaller2 one is << " << smaller2->name << std::endl; //9 
-    
+    if(t1.value == t2.value)
+        std::cout << "the " << t1.name << " and " << t2.name << " are equal" << std::endl;
+    else 
+    {
+        auto& smaller3 = f.compare3(t1, t2); 
+        std::cout << "the smaller3 one is << " << smaller3.name << std::endl; 
+    }
+
+
     U u3;
     float updatedValue = 5.f;
     std::cout << "[static func] u3's multiplied values: " << Struct2::staticFunctionA(u3 , updatedValue) << std::endl;                  //11
