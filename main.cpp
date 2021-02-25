@@ -28,20 +28,11 @@ struct T
 
 struct Struct1                                //4
 {
-    // This is a valid code but your instruction is "convert all pointer to reference type where possible"
-    const T* compare(const T& a, const T& b) //5
+    T* compare(T& a, T& b) //5
     {
-        if( a.value < b.value ) return &b;
-        if( a.value > b.value ) return &a;
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &b;
         return nullptr;   
-    }
-
-    // This is hopefully the right answer for your instruction 
-    const T& compare3(const T& a, const T& b) //5
-    {
-        if( a.value < b.value ) return b;
-        if( a.value > b.value ) return a;
-        return a;   // If a and b is equal. Not the best solution...
     }
 
 };
@@ -98,24 +89,13 @@ struct Struct2
 
 int main()
 {
-    T t1(21 , "a");                                             //6
+    T t1(20 , "a");                                             //6
     T t2(21 , "b");                                             //6
     
     Struct1 f;                                            //7
     auto* smaller = f.compare(t1, t2); 
     if(smaller != nullptr)
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9 
-    else 
-        std::cout << "the " << t1.name << " and " << t2.name << " are equal" << std::endl;
-
-    if(t1.value == t2.value)
-        std::cout << "the " << t1.name << " and " << t2.name << " are equal" << std::endl;
-    else 
-    {
-        auto& smaller3 = f.compare3(t1, t2); 
-        std::cout << "the smaller3 one is << " << smaller3.name << std::endl; 
-    }
-
 
     U u3;
     float updatedValue = 5.f;
